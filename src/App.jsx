@@ -10,6 +10,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+
 import AuthContextProvider from './components/authContext';
 
 function App() {
@@ -24,7 +25,6 @@ function App() {
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>
-
   )
 }
 
