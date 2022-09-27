@@ -6,25 +6,31 @@ import {
   signOut
 } from "firebase/auth";
 
-import Firebase from '../../components/firebase.jsx'
-
 import { AuthContext } from '../../components/authContext'
 
-export default function Cadastro() {
+import { useNavigate } from "react-router-dom";
 
-  //const auth = getAuth(Firebase);
+export default function Cadastro() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { auth } = useContext(AuthContext);
+  const {
+    auth,
+    isLogged,
+    user
+  } = useContext(AuthContext)
+
+  const navigate = useNavigate()
 
   async function Cadastrar() {
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log('deu bom!', user);
+        const user = userCredential.user
+        console.log('deu bom!', user)
 
+        navigate('/home')
+        
 
       })
       .catch((error) => {
@@ -56,7 +62,7 @@ export default function Cadastro() {
         />
       </div>
       <button onClick={() => Cadastrar()}>Cadastro</button>
-      <button onClick={() => console.log(auth)}>Teste</button>
+      <button onClick={() => console.log(isLogged, user)}>Teste</button>
       <button onClick={() => signOut(auth)}>Sair</button>
     </div>
   )

@@ -19,10 +19,9 @@ export default function AuthContextProvider({ children }) {
   const auth = getAuth(Firebase);
 
   const [isLogged, setIsLogged] = useState(false);
+  const [user, setUser] = useState(false);
 
-  const [user, setUser] = useState(false)
-
-  useEffect(() => {
+  useEffect(() => { 
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsLogged(true);
@@ -30,9 +29,10 @@ export default function AuthContextProvider({ children }) {
       }
       else {
         setIsLogged(false);
+        setUser(user);
       }
     });
-  })
+  }, [auth])
 
   const value = {
     auth,
