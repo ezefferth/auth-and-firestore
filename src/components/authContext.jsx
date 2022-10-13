@@ -19,10 +19,10 @@ export default function AuthContextProvider({ children }) {
   const auth = getAuth(Firebase);
 
   const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState();
 
-  useEffect(() => { 
-    onAuthStateChanged(auth, (user) => {
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsLogged(true);
         setUser(user);
@@ -32,7 +32,10 @@ export default function AuthContextProvider({ children }) {
         setUser(user);
       }
     });
-  }, [auth])
+    console.log('console effect', user);
+    return unsubscribe;
+
+  }, [user])
 
   const value = {
     auth,

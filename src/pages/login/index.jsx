@@ -5,29 +5,15 @@ import React, {
   useContext
 } from 'react'
 
-import { Link } from 'react-router-dom';
-
 import { AuthContext } from '../../components/authContext';
 
-
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from 'firebase/auth';
-
 
 export default function Login() {
 
-  const { isLogged, auth } = useContext(AuthContext)
+  const { auth } = useContext(AuthContext)
 
-  const navigate = useNavigate()
-
-  if (isLogged) {
-    navigate('/home')
-    return (
-      <div>
-        Loading...
-      </div>
-    )
-  }
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,7 +22,6 @@ export default function Login() {
     await signInWithEmailAndPassword(auth, email, password)
       .then((user) => {
         console.log(user);
-        navigate('/home')
       }).catch((error) => {
         window.alert(error.message)
       })
@@ -67,7 +52,6 @@ export default function Login() {
 
       <button
         onClick={() => Login(auth, email, password)}
-
       >Logar</button>
 
     </div>

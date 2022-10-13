@@ -3,15 +3,20 @@ import './App.scss'
 
 
 
-import AuthContextProvider from './components/authContext';
+
 import Routers from './components/route';
+
+import { AuthContext } from './components/authContext'
+import { useContext } from 'react'
 
 function App() {
 
+  //const isLogged = true;
+  const {
+    isLogged
+  } = useContext(AuthContext)
   return (
-    <AuthContextProvider>
-      <Routers />
-    </AuthContextProvider>
+    <Routers isLogged={isLogged} />
   )
 }
 
